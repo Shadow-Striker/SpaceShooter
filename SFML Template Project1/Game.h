@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Player.h"
+#include "Star.h"
 
 class Game
 {
@@ -12,6 +14,13 @@ public:
 	void Update();
 
 private:
+	void SetupGame();
+
 	sf::RenderWindow window;
+	sf::Clock gameClock;
+	Player playerInstance;
+	Star starInstance;
+	sf::Vector2f GetScreenSize();
+
 };
 

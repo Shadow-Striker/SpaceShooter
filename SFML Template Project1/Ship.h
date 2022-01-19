@@ -11,8 +11,9 @@ protected:
 
 	void Move(sf::Vector2f direction);
 
-private:
 	float moveSpeed;
+private:
+
 
 };
 
