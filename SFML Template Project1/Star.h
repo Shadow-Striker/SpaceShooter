@@ -7,7 +7,8 @@ public:
 	//Overridden Functions
 	virtual void Update(sf::Time deltaTime);
 private:
-	sf::Texture starTexture;
+	//Initialised at start of program
+	static sf::Texture* starTexture;
 	sf::Vector2f screenSize;
 	float moveSpeed;
 };

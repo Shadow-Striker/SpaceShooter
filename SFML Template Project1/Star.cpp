@@ -1,12 +1,21 @@
 #include "Star.h"
 
+//Initilisation of static variable
+sf::Texture* Star::starTexture = nullptr;
+
 Star::Star(sf::Vector2f _screenSize)
-	:starTexture	()
+	: GameObject	()
 	, screenSize	(_screenSize)
 	, moveSpeed		(200.0f)
 {
-	starTexture.loadFromFile("Assets/Graphics/Star.png");
-	objectSprite.setTexture(starTexture);
+	if (starTexture == nullptr)
+	{
+		starTexture = new sf::Texture();
+		starTexture->loadFromFile("Assets/Graphics/Star.png");
+	}
+
+
+	objectSprite.setTexture(*starTexture);
 
 	//Random Position
 	sf::Vector2f newPosition(0, 0);

@@ -1,10 +1,10 @@
 #include "Game.h"
 #include <SFML/Graphics.hpp>
 Game::Game()
-	: window(sf::VideoMode::getDesktopMode(), "Space Shooter", sf::Style::Titlebar | sf::Style::Close)
-	, gameClock()
-	, playerInstance()
-	, starInstance(sf::Vector2f(window.getSize()))
+	: window			(sf::VideoMode::getDesktopMode(), "Space Shooter", sf::Style::Titlebar | sf::Style::Close)
+	, gameClock			()
+	, playerInstance	()
+	, starVector		()
 {
 }
 
@@ -41,7 +41,10 @@ void Game::Draw()
 	window.clear();
 
 	playerInstance.Draw(window);
-	starInstance.Draw(window);
+	for (int i = 0; i < starVector.size(); ++i)
+	{
+		starVector[i]->Draw(window);
+	}
 
 	window.display();
 }
@@ -52,7 +55,10 @@ void Game::Update()
 	//Time passed since last frame.
 	sf::Time deltaTime = gameClock.restart();
 	playerInstance.Update(deltaTime);
-	starInstance.Update(deltaTime);
+	for (int i = 0; i < starVector.size(); ++i)
+	{
+		starVector[i]->Update(deltaTime);
+	}
 }
 
 void Game::SetupGame()
@@ -61,6 +67,13 @@ void Game::SetupGame()
 
 	//Put our player in the centre of the screen vertically and near the left side.
 	playerInstance.SetPosition(sf::Vector2f(100, screenSize.y / 2 - 50));
+
+	//Create stars
+	int numStars = 10;
+	for (int i = 0; i < numStars; ++i)
+	{
+		starVector.push_back(new Star(screenSize));
+	}
 }
 
 sf::Vector2f Game::GetScreenSize()

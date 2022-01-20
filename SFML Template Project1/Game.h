@@ -19,7 +19,8 @@ private:
 	sf::RenderWindow window;
 	sf::Clock gameClock;
 	Player playerInstance;
-	Star starInstance;
+	std::vector<Star*> starVector;
+	
 	sf::Vector2f GetScreenSize();
 
 };
