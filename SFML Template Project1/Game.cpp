@@ -52,6 +52,7 @@ void Game::Update()
 	//Time passed since last frame.
 	sf::Time deltaTime = gameClock.restart();
 	playerInstance.Update(deltaTime);
+	starInstance.Update(deltaTime);
 }
 
 void Game::SetupGame()
