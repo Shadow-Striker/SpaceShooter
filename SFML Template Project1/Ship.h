@@ -1,19 +1,22 @@
 #pragma once
 #include "GameObject.h"
 #include <SFML/Graphics.hpp>
+class Game;
 
 class Ship : public GameObject
 {
 public:
-	Ship();
+	Ship(Game* newGame);
 
 protected:
 
 	void Move(sf::Vector2f direction);
+	void Fire();
 
 	float moveSpeed;
-private:
 
+private:
+	Game* myGame;
 
 };
 

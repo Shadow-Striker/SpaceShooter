@@ -10,6 +10,7 @@ public:
 	virtual void Update(sf::Time deltaTime);
 	void SetVelocity(sf::Vector2f _velocity);
 	void SetPosition(sf::Vector2f newPosition);
+	sf::Vector2f GetPosition();
 
 protected:
 	sf::Sprite objectSprite;

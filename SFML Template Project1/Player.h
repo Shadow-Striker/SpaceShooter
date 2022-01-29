@@ -6,7 +6,7 @@ class Player :
 
 public:
     //Constructor and destructors
-    Player();
+    Player(Game* newGame);
 
     //Overridden Functions
     virtual void Update(sf::Time deltaTime);

@@ -29,4 +29,9 @@ void GameObject::SetPosition(sf::Vector2f newPosition)
 	objectSprite.setPosition(newPosition);
 }
 
+sf::Vector2f GameObject::GetPosition()
+{
+	return position;
+}
+
 

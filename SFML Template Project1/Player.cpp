@@ -1,7 +1,8 @@
 #include "Player.h"
 
-Player::Player()
-	:playerTexture ()
+Player::Player(Game* newGame)
+	: Ship			(newGame)
+	, playerTexture ()
 {
 	playerTexture.loadFromFile("Assets/Graphics/player.png");
 	objectSprite.setTexture(playerTexture);

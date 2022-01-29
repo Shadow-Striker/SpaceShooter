@@ -3,9 +3,14 @@
 Game::Game()
 	: window			(sf::VideoMode::getDesktopMode(), "Space Shooter", sf::Style::Titlebar | sf::Style::Close)
 	, gameClock			()
-	, playerInstance	()
+	, playerInstance	(this)
 	, starVector		()
+	, enemyVector		()
+	, bulletVector		()
+	, timeSinceEnemy	()
 {
+	//New keyword gives us the address to an object
+	AddBullet(new Bullet());
 }
 
 void Game::Run()
@@ -20,12 +25,11 @@ void Game::Run()
 			{
 				window.close();
 			}
-
-			//Update
-			Update();
-			//Draw
-			Draw();
 		}
+		//Update
+		Update();
+		//Draw
+		Draw();
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
@@ -41,9 +45,20 @@ void Game::Draw()
 	window.clear();
 
 	playerInstance.Draw(window);
+
+	for (int i = 0; i < enemyVector.size(); ++i)
+	{
+		enemyVector[i]->Draw(window);
+	}
+	
 	for (int i = 0; i < starVector.size(); ++i)
 	{
 		starVector[i]->Draw(window);
+	}
+
+	for (int i = 0; i < bulletVector.size(); ++i)
+	{
+		bulletVector[i]->Draw(window);
 	}
 
 	window.display();
@@ -58,6 +73,21 @@ void Game::Update()
 	for (int i = 0; i < starVector.size(); ++i)
 	{
 		starVector[i]->Update(deltaTime);
+	}
+
+	for (int i = 0; i < enemyVector.size(); ++i)
+	{
+		enemyVector[i]->Update(deltaTime);
+	}
+
+	//Enemy spawn frequency
+	float enemyFrequency = 2.0f;
+	timeSinceEnemy += deltaTime;
+
+	if (timeSinceEnemy.asSeconds() >= enemyFrequency)
+	{
+		SpawnEnemy();
+		timeSinceEnemy = sf::Time();
 	}
 }
 
@@ -74,6 +104,18 @@ void Game::SetupGame()
 	{
 		starVector.push_back(new Star(screenSize));
 	}
+}
+
+void Game::SpawnEnemy()
+{
+	//Special pointer EVERY class has called "this"
+
+	enemyVector.push_back(new ChaseEnemy(sf::Vector2f(window.getSize()), &playerInstance));
+}
+
+void Game::AddBullet(Bullet* bulletToAdd)
+{
+	bulletVector.push_back(bulletToAdd);
 }
 
 sf::Vector2f Game::GetScreenSize()
