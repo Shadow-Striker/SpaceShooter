@@ -10,7 +10,7 @@ Game::Game()
 	, timeSinceEnemy	()
 {
 	//New keyword gives us the address to an object
-	AddBullet(new Bullet());
+	//AddBullet(new Bullet());
 }
 
 void Game::Run()
@@ -120,6 +120,25 @@ void Game::Update()
 		else
 		{
 			++enemyIndex;
+		}
+	}
+
+	//Check if any bullets are dead
+	for (size_t bulletIndex = 0; bulletIndex < bulletVector.size(); ++bulletIndex)
+	{
+		if (!bulletVector[bulletIndex]->IsAlive())
+		{
+			//De-allocate memory
+			//Doesn't really delete it. Just becomes garbage memory and is inaccessible.
+			delete bulletVector[bulletIndex];
+			bulletVector[bulletIndex] = nullptr;
+
+			//Remove enemy from vector
+			bulletVector.erase(bulletVector.begin() + bulletIndex);
+		}
+		else
+		{
+			++bulletIndex;
 		}
 	}
 }

@@ -26,11 +26,12 @@ void Bullet::HandleCollision(Ship* target)
 
 	if (bulletCollider.intersects(shipCollider))
 	{
+		alive = false;
 		target->TakeDamage(100);
 	}
 }
 
 bool Bullet::IsAlive()
 {
-	return false;
+	return alive;
 }
