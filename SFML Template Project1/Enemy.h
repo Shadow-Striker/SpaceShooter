@@ -4,7 +4,7 @@ class Enemy :
     public Ship
 {
 public:
-    Enemy(sf::Vector2f newScreenSize);
+    Enemy(sf::Vector2f newScreenSize, Game* newGame);
     //Overridden Functions
     virtual void Update(sf::Time deltaTime) override;
 private:

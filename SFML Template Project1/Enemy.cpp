@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(sf::Vector2f newScreenSize)
+Enemy::Enemy(sf::Vector2f newScreenSize, Game* newGame)
 //Initalising base class for clarity
 	: Ship				(newGame)
 	, movementTarget	(0,0)

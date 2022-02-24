@@ -89,6 +89,39 @@ void Game::Update()
 		SpawnEnemy();
 		timeSinceEnemy = sf::Time();
 	}
+
+	for (size_t i = 0; i < bulletVector.size(); i++)
+	{
+		bulletVector[i]->Update(deltaTime);
+	}
+
+	//Check collision for the bullets
+	for (size_t bulletIndex = 0; bulletIndex < bulletVector.size(); ++bulletIndex)
+	{
+		for (size_t enemyIndex = 0; enemyIndex < enemyVector.size(); ++enemyIndex)
+		{
+ 			bulletVector[bulletIndex]->HandleCollision(enemyVector[enemyIndex]);
+		}
+	}
+
+	//Check if any enemies are dead
+	for (size_t enemyIndex = 0; enemyIndex < enemyVector.size(); ++enemyIndex)
+	{
+		if (!enemyVector[enemyIndex]->IsAlive())
+		{
+			//De-allocate memory
+			//Doesn't really delete it. Just becomes garbage memory and is inaccessible.
+			delete enemyVector[enemyIndex];
+			enemyVector[enemyIndex] = nullptr;
+
+			//Remove enemy from vector
+			enemyVector.erase(enemyVector.begin() + enemyIndex);
+		}
+		else
+		{
+			++enemyIndex;
+		}
+	}
 }
 
 void Game::SetupGame()
@@ -110,7 +143,7 @@ void Game::SpawnEnemy()
 {
 	//Special pointer EVERY class has called "this"
 
-	enemyVector.push_back(new ChaseEnemy(sf::Vector2f(window.getSize()), &playerInstance));
+	enemyVector.push_back(new ChaseEnemy(this, sf::Vector2f(window.getSize()), &playerInstance));
 }
 
 void Game::AddBullet(Bullet* bulletToAdd)

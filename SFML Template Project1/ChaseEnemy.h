@@ -9,7 +9,7 @@ class ChaseEnemy :
 public:
 
     //Constructors/Destructors
-    ChaseEnemy(sf::Vector2f newScreenSize, Player* newPlayer);
+    ChaseEnemy(Game* newGame, sf::Vector2f newScreenSize, Player* newPlayer);
 
 protected:
 

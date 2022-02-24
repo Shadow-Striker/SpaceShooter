@@ -34,4 +34,9 @@ sf::Vector2f GameObject::GetPosition()
 	return position;
 }
 
+sf::FloatRect GameObject::GetCollider()
+{
+	return objectSprite.getGlobalBounds();
+}
+
 

@@ -5,7 +5,7 @@
 sf::Texture* ChaseEnemy::chaseEnemyTexture = nullptr;
 
 ChaseEnemy::ChaseEnemy(Game* newGame, sf::Vector2f newScreenSize, Player* newPlayer)
-	: Enemy				(newGame, newScreenSize)
+	: Enemy				(newScreenSize, newGame)
 	, playerPointer		(newPlayer)
 {
 	if (chaseEnemyTexture == nullptr)
